@@ -156,6 +156,7 @@ resource "aws_instance" "web_server" {
     Environment = var.environment
     ManagedBy   = "Terraform"
   }
+}
 
 # ==========================================
 # 5. 故意留漏洞的 S3 存储桶资源 (Test S3 Bucket with High Risks)
