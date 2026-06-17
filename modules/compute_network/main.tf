@@ -49,8 +49,8 @@ resource "aws_security_group" "ec2_sg" {
 
   # 满足需求：将22端口改为6022，并对全部网络(0.0.0.0/0)开放
   ingress {
-    from_port   = 60022
-    to_port     = 60022
+    from_port   = 22
+    to_port     = 22
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
     description = "Custom SSH port open to world"
