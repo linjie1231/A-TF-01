@@ -203,26 +203,5 @@ resource "aws_s3_bucket_policy" "allow_public_read" {
   })
 }
 
-# 风险 D：修改或新增一个带有过度授权通配符 "*" 的 IAM 策略
-resource "aws_iam_policy" "wildcard_admin_policy" {
-  name        = "${var.environment}-wildcard-dangerous-policy"
-  description = "A highly dangerous IAM policy created for scanner testing"
 
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect   = "Allow"
-        Action   = "*"                  # 漏洞：允许执行任何 AWS 操作（数据外泄风险）
-        Resource = "*"                  # 漏洞：允许对任何 AWS 资源进行操作
-      }
-    ]
-  })
-}
-
-# 将这个极度危险的通配符策略也附加到你之前的 EC2 角色上，测试 Wiz 的立体感知能力
-resource "aws_iam_role_policy_attachment" "dangerous_policy_attach" {
-  role       = aws_iam_role.ec2_role.name
-  policy_arn = aws_iam_policy.wildcard_admin_policy.arn
-}
 
